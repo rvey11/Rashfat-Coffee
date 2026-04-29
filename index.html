@@ -1,0 +1,760 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rashfa Coffee</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Noto+Sans+Arabic:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F6A73',
+                        secondary: '#FFFFFF',
+                        accent: '#F28C28',
+                        dark: '#1a2e30',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Noto Sans Arabic', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .hero-gradient {
+            background: linear-gradient(rgba(15, 106, 115, 0.85), rgba(15, 106, 115, 0.7)), url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .reveal { transition: all 0.8s ease-out; opacity: 0; transform: translateY(20px); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .menu-item:hover .menu-dots { border-color: #F28C28; }
+        .menu-item:hover .menu-price { color: #F28C28; transform: scale(1.05); }
+        /* Language Transition */
+        .lang-en, .lang-fr { transition: opacity 0.3s ease; }
+    </style>
+</head>
+<body class="bg-white text-dark font-sans selection:bg-accent selection:text-white pt-10">
+
+    <!-- Promo Top Bar (Sales Booster) -->
+    <div class="fixed top-0 left-0 w-full bg-dark text-white text-xs md:text-sm py-2 z-[60] flex items-center justify-center font-semibold tracking-wide">
+        <span class="text-accent mr-2 animate-pulse"><i class="fa-solid fa-mug-hot"></i></span>
+        <span class="lang-en">  L’PAUSE DIALK HNA, AHSAN COFFE SHOP F'AGADIR 😋</span>
+        <span class="lang-fr hidden"> L’PAUSE DIALK HNA, AHSAN COFFE SHOP F'AGADIR 😋</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-9 w-full z-50 bg-white/90 backdrop-blur-md border-b border-primary/10 shadow-sm transition-all">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div class="flex items-center">
+            <a href="index.html" onclick="location.reload()" class="flex items-center">
+                <img src="bestcoffeshopinagadir.png" 
+                     alt="Rashfa Logo" 
+                     class="h-12 w-auto md:h-16 transition-transform hover:scale-105 active:scale-95" />
+            </a>
+        </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center space-x-8 text-sm font-semibold uppercase tracking-widest text-primary/80">
+                <a href="#about" class="hover:text-accent transition-colors">
+                    <span class="lang-en">Our Story</span><span class="lang-fr hidden">Notre Histoire</span>
+                </a>
+                <a href="#menu" class="hover:text-accent transition-colors">
+                    <span class="lang-en">The Menu</span><span class="lang-fr hidden">Le Menu</span>
+                </a>
+                <a href="#contact" class="hover:text-accent transition-colors">
+                    <span class="lang-en">Find Us</span><span class="lang-fr hidden">Nous Trouver</span>
+                </a>
+            </div>
+
+            <!-- Actions (Lang + Order) -->
+            <div class="flex items-center space-x-3 md:space-x-4">
+                <!-- Language Toggle -->
+                <button onclick="toggleLanguage()" id="langToggleBtn" class="flex items-center space-x-2 px-3 py-1.5 border-2 border-primary/20 rounded-full text-primary hover:border-primary transition-all text-xs font-bold shadow-sm">
+                    <i class="fa-solid fa-globe"></i>
+                    <span id="langLabel">FR</span>
+                </button>
+
+                <a href="#menu" class="hidden md:flex px-6 py-2.5 bg-accent text-white rounded-full hover:bg-orange-600 transition-all duration-300 shadow-lg shadow-accent/30 font-bold items-center space-x-2">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="lang-en">Order Now</span>
+                    <span class="lang-fr hidden">Commander</span>
+                </a>
+
+                <!-- Mobile Toggle -->
+                <button class="lg:hidden text-primary text-2xl ml-2" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-primary z-[70] flex flex-col items-center justify-center space-y-8 text-white hidden">
+        <button onclick="toggleMenu()" class="absolute top-12 right-8 text-3xl"><i class="fa-solid fa-xmark"></i></button>
+        <a href="#about" onclick="toggleMenu()" class="text-2xl font-bold"><span class="lang-en">Our Story</span><span class="lang-fr hidden">Notre Histoire</span></a>
+        <a href="#menu" onclick="toggleMenu()" class="text-2xl font-bold"><span class="lang-en">Menu</span><span class="lang-fr hidden">Menu</span></a>
+        <a href="#vibe" onclick="toggleMenu()" class="text-2xl font-bold"><span class="lang-en">Atmosphere</span><span class="lang-fr hidden">Ambiance</span></a>
+        <a href="#contact" onclick="toggleMenu()" class="text-2xl font-bold"><span class="lang-en">Location</span><span class="lang-fr hidden">Adresse</span></a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="hero-gradient absolute inset-0"></div>
+        <div class="relative z-10 text-center px-6 max-w-5xl mt-10">
+            <span class="text-accent font-bold tracking-[0.3em] uppercase mb-4 block animate-pulse">Agadir, Hay Salam</span>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight mb-6 drop-shadow-lg">
+                <span class="lang-en">A cup is not just a drink, it's a <span class="text-accent italic">feeling.</span></span>
+                <span class="lang-fr hidden">Une tasse n'est pas qu'une boisson, c'est un <span class="text-accent italic">sentiment.</span></span>
+            </h1>
+            <p class="text-white/90 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+                <span class="lang-en">Experience the art of the sip at Rashfa. Modern aesthetics meets specialty soul.</span>
+                <span class="lang-fr hidden">Découvrez l'art de la gorgée chez Rashfa. L'esthétique moderne rencontre l'âme du café de spécialité.</span>
+            </p>
+            
+            <!-- High Conversion CTAs -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="https://wa.me/212525397589" class="w-full sm:w-auto px-8 py-4 bg-green-500 text-white font-bold rounded-full hover:bg-green-400 hover:scale-105 transition-all shadow-xl shadow-green-500/40 flex items-center justify-center space-x-3 text-lg border-2 border-green-400">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i>
+                    <span class="lang-en">Order Delivery</span>
+                    <span class="lang-fr hidden">Commander la Livraison</span>
+                </a>
+                <a href="#menu" class="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-md border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-primary transition-all text-lg">
+                    <span class="lang-en">View Menu</span>
+                    <span class="lang-fr hidden">Voir le Menu</span>
+                </a>
+            </div>
+
+            <!-- Social Proof -->
+            <div class="mt-8 flex items-center justify-center space-x-3 text-white/90 font-semibold bg-black/20 w-fit mx-auto px-4 py-2 rounded-full backdrop-blur-sm border border-white/10">
+                <div class="flex text-accent text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <span class="text-sm">
+                    <span class="lang-en">5.0 Rated in Agadir</span>
+                    <span class="lang-fr hidden">Noté 5.0 à Agadir</span>
+                </span>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 text-white animate-bounce">
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- The Concept -->
+    <section id="about" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+                <span class="text-primary/60 font-bold uppercase tracking-widest text-sm mb-4 block">
+                    <span class="lang-en">The Concept</span><span class="lang-fr hidden">Le Concept</span>
+                </span>
+                <h2 class="text-4xl md:text-5xl font-bold text-primary mb-8 leading-tight">
+                    أجمل شيء في يومك هو رشفة <br>
+                    <span class="text-accent lang-en">The best part of your day.</span>
+                    <span class="text-accent lang-fr hidden">La meilleure partie de votre journée.</span>
+                </h2>
+                <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                    <span class="lang-en">Rashfa (رشفة) means "a sip." We believe in the quiet power of a perfectly brewed moment. Away from the noise of the city, we created a sanctuary in Hay Salam for those who value quality, calm, and community.</span>
+                    <span class="lang-fr hidden">Rashfa (رشفة) signifie "une gorgée". Nous croyons au pouvoir apaisant d'un moment parfaitement infusé. Loin du bruit de la ville, nous avons créé un sanctuaire à Hay Salam pour ceux qui apprécient la qualité, le calme et la communauté.</span>
+                </p>
+                <div class="grid grid-cols-2 gap-6 mt-10">
+                    <div class="flex items-start space-x-3">
+                        <div class="bg-primary/10 p-3 rounded-xl text-primary">
+                            <i class="fa-solid fa-mug-hot"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">
+                                <span class="lang-en">Specialty Beans</span><span class="lang-fr hidden">Grains de Spécialité</span>
+                            </h4>
+                            <p class="text-sm text-gray-500">
+                                <span class="lang-en">Carefully sourced & roasted</span><span class="lang-fr hidden">Soigneusement sourcés</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="bg-primary/10 p-3 rounded-xl text-primary">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">
+                                <span class="lang-en">Matcha Focus</span><span class="lang-fr hidden">Spécialité Matcha</span>
+                            </h4>
+                            <p class="text-sm text-gray-500">
+                                <span class="lang-en">Ceremonial grade quality</span><span class="lang-fr hidden">Qualité grade cérémonial</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative reveal">
+                <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl relative group">
+                    <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Rashfa Interior" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <div class="absolute -bottom-8 -left-8 glass-card p-8 rounded-2xl shadow-xl border border-primary/10 hidden lg:block hover:-translate-y-2 transition-transform">
+                    <div class="flex items-center space-x-4">
+                        <div class="text-4xl font-bold text-accent">5.0</div>
+                        <div>
+                            <div class="flex text-accent text-sm mb-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-sm font-bold uppercase text-primary tracking-widest">
+                                <span class="lang-en">Top Rated</span><span class="lang-fr hidden">Hautement Noté</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Banner -->
+    <section class="bg-primary py-12 relative z-20 shadow-xl">
+        <div class="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-8 md:gap-16 text-white">
+            <div class="flex items-center space-x-4 hover:text-accent transition-colors cursor-default">
+                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shadow-inner">
+                    <i class="fa-solid fa-car text-accent text-xl"></i>
+                </div>
+                <span class="font-bold uppercase tracking-wider text-sm">
+                    <span class="lang-en">Drive-Through Available</span><span class="lang-fr hidden">Service au Volant</span>
+                </span>
+            </div>
+            <div class="flex items-center space-x-4 hover:text-accent transition-colors cursor-default">
+                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shadow-inner">
+                    <i class="fa-solid fa-wifi text-accent text-xl"></i>
+                </div>
+                <span class="font-bold uppercase tracking-wider text-sm">
+                    <span class="lang-en">High-Speed Wi-Fi</span><span class="lang-fr hidden">Wi-Fi Haut Débit</span>
+                </span>
+            </div>
+            <div class="flex items-center space-x-4 hover:text-accent transition-colors cursor-default">
+                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shadow-inner">
+                    <i class="fa-solid fa-moon text-accent text-xl"></i>
+                </div>
+                <span class="font-bold uppercase tracking-wider text-sm">
+                    <span class="lang-en">Open Until Midnight</span><span class="lang-fr hidden">Ouvert jusqu'à Minuit</span>
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Menu -->
+    <section id="menu" class="py-24 bg-gray-50 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-20 reveal">
+                <span class="text-accent font-bold tracking-widest text-sm uppercase mb-3 block">La Carte</span>
+                <h2 class="text-4xl md:text-5xl font-bold text-primary mb-6">
+                    <span class="lang-en">Our Complete Menu</span><span class="lang-fr hidden">Notre Menu Complet</span>
+                </h2>
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
+                    <span class="lang-en">Discover our complete selection, from traditional Moroccan breakfasts to ceremonial grade matcha and sweet treats.</span>
+                    <span class="lang-fr hidden">Découvrez notre sélection complète, des petits-déjeuners marocains traditionnels au matcha de grade cérémonial et douceurs.</span>
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
+                <!-- Petit Déjeuner -->
+                <div class="bg-white p-8 rounded-[30px] shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal border border-primary/5">
+                    <div class="flex items-center space-x-4 mb-8">
+                        <div class="w-14 h-14 rounded-2xl bg-accent/10 text-accent flex items-center justify-center text-2xl shadow-inner">
+                            <i class="fa-solid fa-sun"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary">Petit Déjeuner</h3>
+                    </div>
+                    <ul class="space-y-5 relative">
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Rapide</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">18 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Traditionnel</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">25 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Fassi</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">35 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Soussi</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">40 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default relative">
+                            <!-- SALES BOOSTER BADGE -->
+                            <span class="absolute -top-5 left-0 bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm animate-pulse">
+                                <span class="lang-en">Top Choice</span><span class="lang-fr hidden">Très Populaire</span>
+                            </span>
+                            <span class="font-bold text-accent bg-white pr-3 z-10 text-lg">Rachfa Spécial</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-accent pl-3 bg-white z-10 menu-price transition-all text-lg">55 DH</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Boissons Chaudes -->
+                <div class="bg-white p-8 rounded-[30px] shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal border border-primary/5">
+                    <div class="flex items-center space-x-4 mb-8">
+                        <div class="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl shadow-inner">
+                            <i class="fa-solid fa-mug-hot"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary">Boissons Chaudes</h3>
+                    </div>
+                    <ul class="space-y-5">
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10 leading-tight">Espresso / Noir / Cassé</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">10 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10 leading-tight">Café au Lait / Noss Noss</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">12 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10 leading-tight">Cappuccino / Choco Chaud</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">15 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10 leading-tight">Mocaccino</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">18 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <div class="flex flex-col bg-white pr-3 z-10">
+                                <span class="font-semibold text-gray-700">Thé à la Menthe</span>
+                                <span class="text-xs text-gray-400">Verre / Théière</span>
+                            </div>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all whitespace-nowrap">10 / 18 DH</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Boissons Froides -->
+                <div class="bg-white p-8 rounded-[30px] shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal border border-primary/5">
+                    <div class="flex items-center space-x-4 mb-8">
+                        <div class="w-14 h-14 rounded-2xl bg-blue-500/10 text-blue-500 flex items-center justify-center text-2xl shadow-inner">
+                            <i class="fa-solid fa-whiskey-glass"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary">Boissons Froides</h3>
+                    </div>
+                    <ul class="space-y-5">
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Café Glacé</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">15 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Iced Latte</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">18 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Affogato</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">20 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default relative">
+                             <!-- SALES BOOSTER BADGE -->
+                             <span class="absolute -top-5 right-0 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
+                                <span class="lang-en">Must Try</span><span class="lang-fr hidden">À Essayer</span>
+                            </span>
+                            <span class="font-bold text-accent bg-white pr-3 z-10">Matcha Latte Glacé</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-accent pl-3 bg-white z-10 menu-price transition-all">25 DH</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Jus Frais & Smoothies -->
+                <div class="bg-white p-8 rounded-[30px] shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal border border-primary/5">
+                    <div class="flex items-center space-x-4 mb-8">
+                        <div class="w-14 h-14 rounded-2xl bg-green-500/10 text-green-500 flex items-center justify-center text-2xl shadow-inner">
+                            <i class="fa-solid fa-apple-whole"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary">Jus & Smoothies</h3>
+                    </div>
+                    <ul class="space-y-5">
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Jus d'Orange</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">12 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Citron / Citronnade</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">15 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Panaché</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">20 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Avocat</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">22 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <div class="flex flex-col bg-white pr-3 z-10">
+                                <span class="font-semibold text-gray-700">Smoothies Classiques</span>
+                                <span class="text-xs text-gray-400">Fraise / Banane / Mangue</span>
+                            </div>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">20 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-bold text-accent bg-white pr-3 z-10">Rachfa Smoothie</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-accent pl-3 bg-white z-10 menu-price transition-all">25 DH</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Gourmandises -->
+                <div class="bg-white p-8 rounded-[30px] shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal border border-primary/5">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl shadow-inner">
+                            <i class="fa-solid fa-cookie-bite"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary">Gourmandises</h3>
+                    </div>
+                    
+                    <!-- SALES BOOSTER: SCARCITY/FRESHNESS -->
+                    <div class="bg-amber-50 text-amber-800 text-xs font-semibold px-3 py-2 rounded-lg mb-6 flex items-center border border-amber-100">
+                        <i class="fa-solid fa-fire mr-2 text-accent"></i>
+                        <span class="lang-en">Baked fresh daily. Until sold out!</span>
+                        <span class="lang-fr hidden">Cuit sur place chaque jour. Stock limité!</span>
+                    </div>
+
+                    <ul class="space-y-5">
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Crêpe Chocolat</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">20 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Crêpe Amlou</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">25 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Pancake Miel</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">22 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Pancake Choco & Fruits</span>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">28 DH</span>
+                        </li>
+                        <li class="flex items-end justify-between group menu-item cursor-default">
+                            <div class="flex flex-col bg-white pr-3 z-10">
+                                <span class="font-semibold text-gray-700">Croissant</span>
+                                <span class="text-xs text-gray-400">Nature / Chocolat</span>
+                            </div>
+                            <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                            <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all whitespace-nowrap">8 / 10 DH</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Milkshakes, Frapps & Salé -->
+                <div class="bg-white p-8 rounded-[30px] shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal border border-primary/5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-purple-500/10 text-purple-500 flex items-center justify-center text-2xl shadow-inner">
+                                <i class="fa-solid fa-blender"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-primary">Frapps & Shakes</h3>
+                        </div>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-end justify-between group menu-item cursor-default">
+                                <div class="flex flex-col bg-white pr-3 z-10">
+                                    <span class="font-semibold text-gray-700">Milkshake</span>
+                                    <span class="text-xs text-gray-400">Oreo / KitKat / Snickers</span>
+                                </div>
+                                <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                                <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">25 DH</span>
+                            </li>
+                            <li class="flex items-end justify-between group menu-item cursor-default">
+                                <div class="flex flex-col bg-white pr-3 z-10">
+                                    <span class="font-semibold text-gray-700">Frappuccino</span>
+                                    <span class="text-xs text-gray-400">Caramel/Vanille/Choco</span>
+                                </div>
+                                <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                                <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">25 DH</span>
+                            </li>
+                        </ul>
+
+                        <div class="flex items-center space-x-4 mb-6 mt-8 border-t border-gray-100 pt-6">
+                            <div class="w-12 h-12 rounded-2xl bg-gray-500/10 text-gray-600 flex items-center justify-center text-xl shadow-inner">
+                                <i class="fa-solid fa-egg"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-primary">Omelettes & Extras</h3>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="flex items-end justify-between group menu-item cursor-default">
+                                <div class="flex flex-col bg-white pr-3 z-10">
+                                    <span class="font-semibold text-gray-700">Omelette</span>
+                                    <span class="text-xs text-gray-400">Nature / Fromage / Khlii</span>
+                                </div>
+                                <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                                <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all whitespace-nowrap text-right">12 / 15 <br><span class="text-xs">/ 25 DH</span></span>
+                            </li>
+                            <li class="flex items-end justify-between group menu-item cursor-default">
+                                <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Eau (33cl) / Sodas</span>
+                                <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                                <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all whitespace-nowrap">6 / 10 DH</span>
+                            </li>
+                            <li class="flex items-end justify-between group menu-item cursor-default">
+                                <span class="font-semibold text-gray-700 bg-white pr-3 z-10">Red Bull</span>
+                                <div class="flex-grow border-b-2 border-dotted border-gray-200 mb-[6px] menu-dots transition-colors"></div>
+                                <span class="font-bold text-primary pl-3 bg-white z-10 menu-price transition-all">25 DH</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Bottom CTA -->
+            <div class="mt-16 text-center reveal">
+                <a href="https://wa.me/212525397589" class="inline-flex items-center space-x-3 px-10 py-5 bg-primary text-white font-bold rounded-full hover:bg-dark hover:scale-105 transition-all shadow-xl text-lg group">
+                    <span class="lang-en">Hungry? Order now</span>
+                    <span class="lang-fr hidden">Faim ? Commandez maintenant</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Vibe (Testimonials) -->
+    <section id="vibe" class="py-24 px-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row items-end justify-between mb-16 reveal">
+                <div class="md:w-1/2">
+                    <h2 class="text-4xl font-bold text-primary mb-4 italic">
+                        <span class="lang-en">"Not your average Agadir café."</span>
+                        <span class="lang-fr hidden">"Pas un café ordinaire à Agadir."</span>
+                    </h2>
+                    <p class="text-gray-500">
+                        <span class="lang-en">Real people, real moments. Why we maintain a 5.0 rating.</span>
+                        <span class="lang-fr hidden">De vrais moments. Pourquoi nous maintenons une note de 5.0.</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 reveal">
+                <div class="bg-gray-50 p-10 rounded-[40px] relative border border-gray-100 shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="text-accent mb-6 text-3xl"><i class="fa-solid fa-quote-left"></i></div>
+                    <p class="text-lg italic text-gray-700 mb-8">
+                        <span class="lang-en">"The calmest atmosphere in Hay Salam. Perfectly detailed interior and the coffee quality is consistent. Abdessamad and the team make you feel like a VIP."</span>
+                        <span class="lang-fr hidden">"L'atmosphère la plus calme de Hay Salam. Un intérieur parfaitement détaillé et un café de qualité constante. On s'y sent comme un VIP."</span>
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">S</div>
+                        <div>
+                            <p class="font-bold">Sara M.</p>
+                            <p class="text-xs text-gray-400 uppercase tracking-widest">
+                                <span class="lang-en">Local Guide</span><span class="lang-fr hidden">Guide Local</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-primary p-10 rounded-[40px] relative text-white shadow-xl transform lg:-translate-y-4">
+                    <div class="text-accent mb-6 text-3xl"><i class="fa-solid fa-quote-left"></i></div>
+                    <p class="text-lg italic mb-8">
+                        <span class="lang-en">"Best matcha in town. Usually cafes focus on aesthetics but forget the beans—Rashfa nails both. Great place for thinking or reading."</span>
+                        <span class="lang-fr hidden">"Le meilleur matcha de la ville. Souvent les cafés se concentrent sur l'esthétique et oublient le goût—Rashfa maîtrise les deux. Idéal pour lire."</span>
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center font-bold">K</div>
+                        <div>
+                            <p class="font-bold">Karim T.</p>
+                            <p class="text-xs text-white/60 uppercase tracking-widest">Designer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-10 rounded-[40px] relative lg:block hidden border border-gray-100 shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="text-accent mb-6 text-3xl"><i class="fa-solid fa-quote-left"></i></div>
+                    <p class="text-lg italic text-gray-700 mb-8">
+                        <span class="lang-en">"Quickest drive-through experience. The smooth rich coffee is never bitter. Truly a 5-star experience every single time."</span>
+                        <span class="lang-fr hidden">"L'expérience drive-through la plus rapide. Le café est doux et jamais amer. Vraiment une expérience 5 étoiles à chaque fois."</span>
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">M</div>
+                        <div>
+                            <p class="font-bold">Omar B.</p>
+                            <p class="text-xs text-gray-400 uppercase tracking-widest">Client</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visit Us (Map & Contact) -->
+    <section id="contact" class="py-24 bg-dark text-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div class="reveal">
+                    <h2 class="text-4xl font-bold mb-8">
+                        <span class="lang-en">Visit Rashfa رشفة</span><span class="lang-fr hidden">Visitez Rashfa رشفة</span>
+                    </h2>
+                    <div class="space-y-8">
+                        <div class="flex items-center space-x-6 hover:translate-x-2 transition-transform">
+                            <div class="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center text-2xl shadow-lg">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <p class="text-white/60 uppercase text-xs tracking-widest mb-1">
+                                    <span class="lang-en">Location</span><span class="lang-fr hidden">Adresse</span>
+                                </p>
+                                <p class="text-xl font-bold">Hay Salam, Agadir</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-6 hover:translate-x-2 transition-transform">
+                            <div class="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center text-2xl shadow-lg">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <p class="text-white/60 uppercase text-xs tracking-widest mb-1">
+                                    <span class="lang-en">Hours</span><span class="lang-fr hidden">Horaires</span>
+                                </p>
+                                <p class="text-xl font-bold">
+                                    <span class="lang-en">Daily: 08:00 AM — 12:00 AM</span><span class="lang-fr hidden">Tous les jours : 08h00 — 00h00</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-6 hover:translate-x-2 transition-transform">
+                            <div class="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center text-2xl shadow-lg">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </div>
+                            <div>
+                                <p class="text-white/60 uppercase text-xs tracking-widest mb-1">Contact</p>
+                                <p class="text-xl font-bold">DM us @rashfacoffee</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-12 flex space-x-4">
+                        <a href="https://www.instagram.com/rashfa_coffee_1/" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:scale-110 transition-all shadow-lg text-lg"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/212525397589" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-green-500 hover:border-green-500 hover:scale-110 transition-all shadow-lg text-lg"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://www.tiktok.com/@rashfacoffee" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-accent hover:border-accent hover:scale-110 transition-all shadow-lg text-lg"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="reveal">
+    <a href="https://www.google.com/maps/dir/?api=1&destination=Rashfa Coffee رشفة قهوة, Street. Agadir, Hay Salam, Abdul Rahman Bin Zaidan, 80000 Rue 914, Agadir 80000" target="_blank" rel="noopener noreferrer" class="block">
+        
+        <div class="bg-primary/10 w-full h-[400px] rounded-[40px] border border-white/10 overflow-hidden flex items-center justify-center group cursor-pointer relative shadow-2xl">
+            
+            <div class="absolute inset-0 bg-gray-800 flex items-center justify-center opacity-50 group-hover:opacity-70 transition-opacity">
+                <i class="fa-solid fa-map-location-dot text-6xl text-accent"></i>
+            </div>
+
+            <div class="z-10 text-center">
+                <p class="text-sm font-bold uppercase tracking-widest mb-4 text-white">
+                    <span class="lang-en">View Directions</span>
+                    <span class="lang-fr hidden">Voir l'itinéraire</span>
+                </p>
+                
+                <span class="px-8 py-3 bg-accent rounded-full font-bold shadow-lg group-hover:bg-orange-500 transition-colors inline-block text-white">
+                    <span class="lang-en">Open Google Maps</span>
+                    <span class="lang-fr hidden">Ouvrir Google Maps</span>
+                </span>
+            </div>
+
+        </div>
+    </a>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 border-t border-gray-100 bg-white">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm">
+            <p class="font-semibold">© 2026 Rashfa Coffee رشفة. A Sip, A Feeling.</p>
+            <div class="flex space-x-8 mt-6 md:mt-0">
+            </div>
+        </div>
+    </footer>
+
+    <!-- Smart Floating WhatsApp CTA (Sales Booster) -->
+    <div class="fixed bottom-6 right-6 z-50 flex items-center space-x-3 group cursor-pointer">
+        <!-- Text tooltip - hidden on small mobile, visible on md+ -->
+        <a href="https://wa.me/212525397589" class="hidden md:flex bg-white px-4 py-2 rounded-full shadow-lg border border-gray-100 text-sm font-bold text-gray-700 opacity-0 group-hover:opacity-100 group-hover:-translate-x-2 transition-all duration-300">
+            <span class="lang-en">Order for Delivery 🛵</span>
+            <span class="lang-fr hidden">Commander 🛵</span>
+        </a>
+        <a href="https://wa.me/212525397589" class="w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 hover:bg-green-400 transition-all animate-bounce" style="animation-duration: 2.5s;">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <script>
+        // Language Toggle Logic
+        let currentLang = 'en';
+        
+        function toggleLanguage() {
+            const btnLabel = document.getElementById('langLabel');
+            
+            // Hide current language elements
+            document.querySelectorAll(`.lang-${currentLang}`).forEach(el => {
+                el.classList.add('hidden');
+            });
+
+            // Switch language
+            currentLang = currentLang === 'en' ? 'fr' : 'en';
+            
+            // Show new language elements
+            document.querySelectorAll(`.lang-${currentLang}`).forEach(el => {
+                el.classList.remove('hidden');
+            });
+
+            // Update button label to show the alternative language
+            btnLabel.textContent = currentLang === 'en' ? 'FR' : 'EN';
+        }
+
+        // Reveal on scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Initial run
+        reveal();
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
